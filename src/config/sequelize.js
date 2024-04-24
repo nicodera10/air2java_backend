@@ -1,12 +1,28 @@
-// sequelize.js
+// src/config/sequelize.js
 const { Sequelize } = require('sequelize');
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
-// Créer une nouvelle instance Sequelize avec les informations de connexion à la base de données MySQL
-const sequelize = new Sequelize('air2java', 'root', 'root', {
-  host: 'localhost',
-  port: 8889,
-  dialect: 'mysql'
-});
+class Database {
+  constructor() {
+    if (!Database.instance) {
+      this._sequelize = new Sequelize({
+        dialect: 'mysql',
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        username: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        logging: false
+      });
+      Database.instance = this;
+    }
+    return Database.instance;
+  }
 
-// Exportez l'instance Sequelize pour l'utiliser dans d'autres fichiers
-module.exports = sequelize;
+  get sequelize() {
+    return this._sequelize;
+  }
+}
+
+module.exports = new Database().sequelize;

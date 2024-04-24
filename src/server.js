@@ -1,8 +1,10 @@
+// src/server.js
 const express = require('express');
+const sequelize = require('./config/sequelize');
 
 const app = express();
 
-// Définissez ici vos routes et middlewares
+// Configurez ici vos routes et middlewares
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
