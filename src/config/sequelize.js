@@ -1,7 +1,7 @@
 // src/config/sequelize.js
 const { Sequelize } = require('sequelize');
-const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+const dotenv = require('dotenv');
+dotenv.config();
 
 class Database {
   constructor() {
