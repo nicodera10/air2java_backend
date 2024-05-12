@@ -2,6 +2,8 @@
 const express = require('express');
 const sequelize = require('./config/sequelize');
 const dotenv = require('dotenv');
+const https = require('https'); // Import du module https
+const fs = require('fs'); // Import du module fs pour la lecture des fichiers
 dotenv.config();
 const app = express();
 
@@ -19,6 +21,15 @@ const personRouter = require(personRoutesPath);
 
 // Import des routes d'authentification
 const authRoutes = require('./routes/authRoute');
+
+// Charger le certificat et la clé privée
+const options = {
+  key: fs.readFileSync('./src/config/localhost.key'),
+  cert: fs.readFileSync('./src/config/localhost.crt')
+};
+
+// Créer un serveur HTTPS au lieu d'utiliser app.listen()
+const server = https.createServer(options, app);
 
 // Configurez ici vos middlewares
 
@@ -39,7 +50,6 @@ app.use((req, res, next) => {
   }
 });
 
-
 /**
  * Routers
  */
@@ -52,8 +62,8 @@ app.use('/festival', festivalRouter);
 app.use('/band', bandRouter);
 app.use('/person', personRouter);
 
-// Lancement du serveur
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
+// Lancement du serveur HTTPS
+const PORT = process.env.PORT; // Utilisation du port 443 par défaut pour HTTPS
+server.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
 });
