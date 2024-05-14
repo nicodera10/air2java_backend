@@ -1,4 +1,4 @@
-// src/models/appuser.js
+//loiacono_nicolas_adj_api/src/models/appuser.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/sequelize');
 

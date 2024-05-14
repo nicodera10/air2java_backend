@@ -1,9 +1,11 @@
-// src/server.js
+//loiacono_nicolas_adj_api/src/server.js
 const express = require('express');
 const sequelize = require('./config/sequelize');
 const dotenv = require('dotenv');
 const https = require('https'); // Import du module https
 const fs = require('fs'); // Import du module fs pour la lecture des fichiers
+const cookieParser = require('cookie-parser');
+
 dotenv.config();
 const app = express();
 
@@ -24,8 +26,8 @@ const authRoutes = require('./routes/authRoute');
 
 // Charger le certificat et la clé privée
 const options = {
-  key: fs.readFileSync('./src/config/localhost.key'),
-  cert: fs.readFileSync('./src/config/localhost.crt')
+  key: fs.readFileSync('./src/config/localhost-key.pem'),
+  cert: fs.readFileSync('./src/config/localhost.pem')
 };
 
 // Créer un serveur HTTPS au lieu d'utiliser app.listen()
@@ -37,18 +39,26 @@ const server = https.createServer(options, app);
 app.use(express.json());
 
 // Middleware pour les CORS
+// Configurez les en-têtes CORS
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3000');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Credentials');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
 
   // Gérer les pré-vérifications CORS (OPTIONS)
   if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
+    res.setHeader('Content-Type', 'application/json'); // Réponse en JSON pour les requêtes OPTIONS
+    res.sendStatus(200); // Répondre uniquement aux demandes OPTIONS avec un statut 200
   } else {
     next();
   }
 });
+
+
+
+
+
 
 /**
  * Routers

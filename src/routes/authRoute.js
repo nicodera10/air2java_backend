@@ -1,4 +1,4 @@
-// src/routes/authRoute.js
+//loiacono_nicolas_adj_api/src/routes/authRoute.js
 const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcrypt');
@@ -12,14 +12,14 @@ router.post('/login', async (req, res) => {
     const user = await AppUser.findOne({ where: { name_appuser: username } });
 
     if (!user) {
-      throw new Error('Nom d\'utilisateur incorrect');
+      throw new Error('Nom d\'utilisateur ou mot de passe incorrect');
     }
 
     // Vérifiez si le mot de passe est correct en le comparant avec le hash stocké
     const passwordMatch = await bcrypt.compare(password, user.password_appuser);
 
     if (!passwordMatch) {
-      throw new Error('Mot de passe incorrect');
+      throw new Error('Nom d\'utilisateur ou mot de passe incorrect');
     }
 
     // Générez le token JWT
@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // Renvoyer le token JWT dans un cookie sécurisé (httpsOnly)
-    res.cookie('token', token, { httpOnly: true, secure: true });
+    res.cookie('token', token, { httpOnly: true, secure: true, path: '/', maxAge: 900000 });
 
     // Renvoyer le nom d'utilisateur dans le corps de la réponse
     res.json({ userName: user.name_appuser });
