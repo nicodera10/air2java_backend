@@ -9,6 +9,9 @@ const cookieParser = require('cookie-parser');
 dotenv.config();
 const app = express();
 
+// Middleware pour parser les cookies
+app.use(cookieParser());
+
 const appuserRoutesPath = process.env.APPUSER_ROUTES;
 const appuserRouter = require(appuserRoutesPath);
 
