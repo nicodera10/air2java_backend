@@ -8,6 +8,9 @@ require('.' + appuserModel);
 const appuserController = process.env.APPUSER_CONTROLLER;
 const appuserCtrl = require('.' + appuserController);
 
-router.get('/', appuserCtrl.getAllAppuser);
+const authMidlleware = process.env.AUTH_MIDDLEWARE;
+const { verifyToken } = require('.' + authMidlleware);
+
+router.get('/', verifyToken, appuserCtrl.getAllAppuser);
 
 module.exports = router;

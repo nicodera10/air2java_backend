@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // Renvoyer le token JWT dans un cookie sécurisé (httpsOnly)
-    res.cookie('token', token, { httpOnly: true, secure: true, path: '/', maxAge: 900000 });
+    res.cookie('token', token, { httpOnly: true, secure: true, path: '/', sameSite: 'Lax',  maxAge: 900000 });
 
     // Renvoyer le nom d'utilisateur dans le corps de la réponse
     res.json({ userName: user.name_appuser });

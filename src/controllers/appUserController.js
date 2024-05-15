@@ -1,13 +1,9 @@
 //loiacono_nicolas_adj_api/src/controllers/appUserController.js
 
 const { AppUser } = require('../models/appuser');
-/*const { verifyToken } = require('./authMiddleware');
-const jwt = require('jsonwebtoken');*/
 
 exports.getAllAppuser = async (req, res) => {
   try {
-    // Vérifiez le token avant de continuer
-    //verifyToken(req, res, async () => {
       //récupérez les utilisateurs de la base de données
       const users = await AppUser.findAll();
 
@@ -18,7 +14,6 @@ exports.getAllAppuser = async (req, res) => {
           name: user.name_appuser,
           type: user.type_appuser
         };
-      //});
 
       // Envoyez les utilisateurs au format JSON en tant que réponse à la requête HTTP
       
