@@ -6,7 +6,6 @@ describe('GET /festival', () => {
     const response = await request(app).get('/festival');
     expect(response.statusCode).toBe(200);
     expect(response.body).toBeTruthy();
-    // Add more assertions as needed based on your expected response format
   });
 });
 
@@ -15,6 +14,5 @@ describe('GET /festival/latest', () => {
     const response = await request(app).get('/festival/latest');
     expect(response.statusCode).toBe(200);
     expect(response.body).toBeTruthy();
-    // Add more assertions as needed based on your expected response format
   });
 });

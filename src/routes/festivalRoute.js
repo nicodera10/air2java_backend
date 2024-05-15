@@ -12,4 +12,6 @@ router.get('/', festivalCtrl.getAllFestivals);
 // Ajoutez une route pour obtenir les 3 derniers festivals en date
 router.get('/latest', festivalCtrl.getLatestFestivals);
 
+router.get('/:id',festivalCtrl.getOneFestival);
+
 module.exports = router;
