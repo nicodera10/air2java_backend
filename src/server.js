@@ -75,8 +75,15 @@ app.use('/festival', festivalRouter);
 app.use('/band', bandRouter);
 app.use('/person', personRouter);
 
-// Lancement du serveur HTTPS
-const PORT = process.env.PORT; // Utilisation du port 443 par défaut pour HTTPS
-server.listen(PORT, () => {
-  console.log(`Serveur démarré sur le port ${PORT}`);
-});
+// Exportez l'application pour qu'elle puisse être utilisée dans d'autres modules
+module.exports = app;
+
+// Si le fichier est exécuté directement, démarrez le serveur
+if (require.main === module) {
+  // Lancement du serveur HTTPS
+  const PORT = process.env.PORT || 443;
+  const server = https.createServer(options, app);
+  server.listen(PORT, () => {
+    console.log(`Serveur démarré sur le port ${PORT}`);
+  });
+}
