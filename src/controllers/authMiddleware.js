@@ -18,7 +18,6 @@ exports.verifyToken = (req, res, next) => {
         if (decoded.userType !== 'admin') {
             return res.status(403).json({ message: 'Forbidden: Not an admin user' });
         }
-        console.log('ok pour le token');
         // Si l'utilisateur est authentifié et est un administrateur, passez à la prochaine étape
         next();
     });

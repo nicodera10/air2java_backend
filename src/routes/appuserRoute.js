@@ -12,5 +12,6 @@ const authMidlleware = process.env.AUTH_MIDDLEWARE;
 const { verifyToken } = require('.' + authMidlleware);
 
 router.get('/', verifyToken, appuserCtrl.getAllAppuser);
+router.post('/', verifyToken, appuserCtrl.createAppUser);
 
 module.exports = router;
