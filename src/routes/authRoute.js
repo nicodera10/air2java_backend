@@ -30,12 +30,17 @@ router.post('/login', async (req, res) => {
     res.cookie('token', token, { httpOnly: true, secure: true, path: '/', sameSite: 'Lax',  maxAge: 900000 });
 
     // Renvoyer le nom d'utilisateur dans le corps de la réponse
-    res.json({ userName: user.name_appuser });
+    res.json({ userName: user.name_appuser, userType: user.type_appuser });
 
   } catch (error) {
     console.error('Erreur de connexion :', error);
     res.status(401).json({ error: error.message });
   }
 });
+
+router.post('/logout', async (req, res) => {
+  res.clearCookie('token', { path: '/' });
+  res.status(200).send('Logged out');
+})
 
 module.exports = router;
