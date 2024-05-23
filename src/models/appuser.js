@@ -1,4 +1,3 @@
-//loiacono_nicolas_adj_api/src/models/appuser.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/sequelize');
 
@@ -22,7 +21,7 @@ const AppUser = sequelize.define('AppUser', {
   }
 }, {
   tableName: 'appuser',
-  timestamps: false // Désactivez les timestamps automatiques
+  timestamps: false
 });
 
 module.exports = { AppUser };

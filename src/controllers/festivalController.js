@@ -2,10 +2,8 @@ const { Festival } = require('../models/festival');
 
 exports.getAllFestivals = async (req, res) => {
     try {
-        // Utilisez la méthode Sequelize findAll() pour récupérer tous les enregistrements de la table festival
         const festivals = await Festival.findAll();
 
-        // Envoyez le JSON en tant que réponse à la requête HTTP
         res.json(festivals);
     } catch (error) {
         console.error('Erreur lors de la récupération des festivals :', error);
@@ -28,17 +26,14 @@ exports.getLatestFestivals = async (req, res) => {
 
 exports.getOneFestival = async (req, res, next) => {
     try {
-        const { id } = req.params; // Récupérer l'ID du festival depuis les paramètres de la requête
+        const { id } = req.params;
 
-        // Recherchez le festival dans la base de données par son ID
         const festival = await Festival.findByPk(id);
 
-        // Vérifiez si le festival existe
         if (!festival) {
             return res.status(404).json({ message: "Festival not found" });
         }
 
-        // Si le festival est trouvé, envoyez-le en réponse
         res.json(festival);
     } catch (error) {
         console.error('Error retrieving festival:', error);

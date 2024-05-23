@@ -1,10 +1,7 @@
-// Importez Sequelize
 const { Sequelize, DataTypes } = require('sequelize');
 
-// Importez la connexion à la base de données
 const sequelize = require('../config/sequelize');
 
-// Définissez votre modèle Festival
 const Festival = sequelize.define('Festival', {
     id_fest: {
         type: DataTypes.INTEGER,
@@ -37,8 +34,7 @@ const Festival = sequelize.define('Festival', {
     }
 }, {
     tableName: 'festival',
-    timestamps: false // Désactivez les timestamps automatiques
+    timestamps: false
 });
 
-// Exportez le modèle Festival
 module.exports = { Festival };

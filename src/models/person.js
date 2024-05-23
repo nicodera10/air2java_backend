@@ -1,10 +1,7 @@
-// Importez Sequelize
 const { Sequelize, DataTypes } = require('sequelize');
 
-// Initialisez Sequelize avec votre connexion à la base de données
 const sequelize = require('../config/sequelize');
 
-// Définissez votre modèle Person
 const Person = sequelize.define('Person', {
   id_person: {
     type: DataTypes.INTEGER,
@@ -62,8 +59,7 @@ const Person = sequelize.define('Person', {
   }
 }, {
     tableName: 'person',
-    timestamps: false // Désactivez les timestamps automatiques
+    timestamps: false
 });
 
-// Exportez le modèle Person
 module.exports = { Person };

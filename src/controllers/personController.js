@@ -2,10 +2,8 @@ const { Person } = require('../models/person');
 
 exports.getAllPersons = async (req, res) => {
   try {
-      // Utilisez la méthode Sequelize findAll() pour récupérer tous les enregistrements de la table person
       const persons = await Person.findAll();
   
-      // Transformez les données pour les formater différemment
       const formattedPersons = persons.map(person => {
           return {
               id_person: person.id_person,
@@ -24,7 +22,6 @@ exports.getAllPersons = async (req, res) => {
           };
       });
   
-      // Envoyez le JSON en tant que réponse à la requête HTTP
       res.json(formattedPersons);
     } catch (error) {
       console.error('Erreur lors de la récupération des personnes :', error);

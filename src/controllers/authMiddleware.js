@@ -1,5 +1,3 @@
-//loiacono_nicolas_adj_api/src/controllers/authMiddleware.js
-
 const jwt = require('jsonwebtoken');
 
 exports.verifyToken = (req, res, next) => {
@@ -14,11 +12,9 @@ exports.verifyToken = (req, res, next) => {
             return res.status(401).json({ message: 'Unauthorized: Invalid token' });
         }
         
-        // Vérifiez le contenu du token, y compris user.type_appuser
         if (decoded.userType !== 'admin') {
             return res.status(403).json({ message: 'Forbidden: Not an admin user' });
         }
-        // Si l'utilisateur est authentifié et est un administrateur, passez à la prochaine étape
         next();
     });
 };

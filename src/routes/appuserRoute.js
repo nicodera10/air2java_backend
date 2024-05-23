@@ -1,4 +1,3 @@
-//loiacono_nicolas_adj_api/src/routes/appuserRoute.js
 const express = require("express");
 const router = express.Router();
 
